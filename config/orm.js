@@ -41,31 +41,46 @@ function objToSql(ob) {
 
 // =============== ORM ======================== //
 const orm = {
-  selectAll:function(tableInput, cb){
-    var queryString=`SELECT * FROM ${tableInput} ORDER BY id ASC`;
-    connection.query(queryString, function(error, data){
-        if(error) throw error;
-        cb(data);
+  selectAll: function (tableInput, cb) {
+    var queryString = `SELECT * FROM ${tableInput} ORDER BY id ASC`;
+    connection.query(queryString, function (error, data) {
+      if (error) throw error;
+      cb(data);
     });
-},
-//insertOne()
-insertOne:function(tableInput, col, val, cb){
+  },
+  //insertOne()
+  insertOne: function (tableInput, col, val, cb) {
     var queryString = `INSERT INTO ${tableInput}(${col.toString()})VALUES(?)`;
-    connection.query(queryString, [val], function(error, data){
-        if(error) throw error;
-        cb(data);
+    connection.query(queryString, [val], function (error, data) {
+      if (error) throw error;
+      cb(data);
     });
-},
-//updateOne() function that will update the Boolean value
-updateOne:function(col, val, id_col, id, cb){
-    var queryString = `SET ${col}=${val}} WHERE ${id_col}=${id}`;
-    connection.query(queryString, function(error, data){
-        if(error) throw error;
-        cb(data);
+  },
+  //updateOne() function that will update the Boolean value
+  updateOne: function (table, objColVals, condition, cb) {
+    var queryString = "UPDATE " + table;
+
+    queryString += " SET ";
+    queryString += objToSql(objColVals);
+    queryString += " WHERE ";
+    queryString += condition
+
+    connection.query(queryString, function (error, data) {
+      if (error) throw error;
+      cb(data);
     });
-}
+  },
+  DeleteOne: function (table, condition, cb) {
+    var queryString = "DELETE FROM " + table
 
+    queryString += " WHERE ";
+    queryString += condition
 
+    connection.query(queryString, function (error, data) {
+      if (error) throw error
+      cb(data)
+    })
+  }
 }
 
 //exported in module.exports
