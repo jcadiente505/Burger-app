@@ -1,12 +1,26 @@
 body {
-    background-color: green
+    background-image: url('../img/Flos-V8-Cafe.jpg');
+    background-size: cover;
+    background-repeat: no-repeat
 }
 
 .header {
+    text-align: center;
+    color: white;
+}
+
+.create-form {
     text-align: center
 }
 
 ul {
     text-align: center;
-    border: 5px solid yellow
+}
+
+#form-container{
+    margin-top: 50px;
+}
+
+label {
+    font-size: 25px;
 }
